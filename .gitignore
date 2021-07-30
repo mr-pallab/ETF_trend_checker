@@ -1,0 +1,8 @@
+# Ignore the chromedriver zip file
+chromedriver_win32.zip
+
+# Ignore the chromedriver file
+chromedriver.exe
+
+# Ignore results directory
+results/
