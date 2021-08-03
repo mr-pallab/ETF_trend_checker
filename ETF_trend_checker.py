@@ -13,6 +13,7 @@ from selenium.webdriver.common.action_chains import ActionChains as AC
 from selenium.webdriver.chrome.options import Options
 #from multiprocessing import Process
 import time
+from datetime import datetime as dt
 
 folder = os.getcwd()
 options = Options()
@@ -73,11 +74,15 @@ def get_etf_data(ETF):
         tooltip_box = driver.find_element_by_class_name('highcharts-tooltip')
         date = tooltip_box.find_element_by_xpath("//*[@style='font-size: 10px;']")
         value = tooltip_box.find_element_by_xpath("//*[@style='font-weight:bold']")
-    
-        print (date.text +" : "+ value.text)
-        # Put all data in a dictionary
-        data[date.text]=value.text
-
+        
+               
+        # Process date values
+        date_processed = dt.strptime(date.text, "%d.%m.%Y").date()
+        # Convert value to float, put all data in a dictionary
+        if value.text != '':
+            data[date_processed]=float(value.text)
+            print (str(date_processed) +" : "+ value.text) 
+        
     #extraction_time = time.time() - start
     #print ("Time for data extraction: " + str(round(extraction_time,2)) + " seconds.")
 
