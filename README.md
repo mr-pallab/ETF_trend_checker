@@ -2,6 +2,9 @@
 The files in this repository contains a set of practice scripts which incrementally implement analysis of ETFs based on interactive charts available on JustETF.com.
 No APIs are used to fetch the data, rather using Selenium in Python, the data is directly scraped from the webpage.
 
+Prerequisites:
+Chromedriver and Chrome web browser, python 3.x, selenium library in Python
+
 Steps implemented so far:
 
 1. ETF_trend_checker.py contains the function to fetch the data of a particular ETF for the last 1 month (daily price)
