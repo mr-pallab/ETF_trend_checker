@@ -10,8 +10,6 @@ from time import time
 from datetime import datetime, timedelta
 import os
 
-
-
 def trend_check(ETFs):
     start = time()
     data = pda.parallel_execution(ETFs)
@@ -33,8 +31,7 @@ def trend_check(ETFs):
             if dates >= (datetime.today().date() - timedelta(days=1)):
                 current_val = ii[1][dates]
                 current_date = dates
-        
-        
+                
         processed_data[ETF_name]=[max_date,max_val,min_date,min_val,current_date,current_val]
         
         delta_high = ((current_val - max_val)/current_val)*100
@@ -45,19 +42,24 @@ def trend_check(ETFs):
         else:
             trend_text = 'Down'        
         
-        trend[ETF_name] = [trend_text, round(trend_strength,2), round(delta_high,2), round(delta_low,2)]
-                
+        name_text = ii[2]
+        trend[ETF_name] = [name_text, trend_text, round(trend_strength,2), round(delta_high,2), round(delta_low,2)]                
         
     return processed_data,trend
 
 if __name__ == '__main__':
 
-    ETFs = ['LU1681045370','IE00BK5BQT80','IE00BK5BQX27']
+    ETFs = ['LU1681045370','IE00BK5BQT80','IE00BK5BQX27','IE00BF4RFH31']
     data,trend = trend_check(ETFs)
     os.system("taskkill /f /im chromedriver.exe")
-    print ("=="*20)
+    print ("=="*35)
     for key,value in trend.items():        
-        print (key)
-        print (value)
-        print ("=="*20)
+        print ("ETF Ticker       : " + str(key))
+        print ("ETF Name         : " + str(value[0]))
+        print ("--"*35)
+        print ("Current trend    : " + str(value[1]))
+        print ("Trend Strength   : " + str(value[2]))
+        print ("Difference to Max: " + str(value[3]))
+        print ("Difference to Min: " + str(value[4]))
+        print ("=="*35)
     

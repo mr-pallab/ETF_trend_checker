@@ -10,7 +10,6 @@ import ETF_trend_checker as get_ETF
 
 #ETFs = ['LU1681045370','IE00BK5BQT80','IE00BK5BQX27']
 
-
 def parallel_execution(ETFs):
     number_of_processes = len(ETFs)
     results = mp.Pool(number_of_processes).map(get_ETF.get_etf_data, ETFs)

@@ -11,7 +11,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains as AC
 from selenium.webdriver.chrome.options import Options
-#from multiprocessing import Process
 import time
 from datetime import datetime as dt
 
@@ -40,28 +39,21 @@ def get_etf_data(ETF):
     select = Select(driver.find_element_by_xpath("//*[@name='chartPanel:chart:content:optionsPanel:selectContainer:currencies']"))
     select.select_by_visible_text('EUR')
 
-
-    #graph = driver.find_element_by_xpath('//*[@id="highcharts-7juqvl8-387"]/svg/g[9]/g[1]/path[5]')
-    #graph = driver.find_element_by_class_name('highcharts-tracker-line')
-    #data = graph.get_attribute('d')
-
     time.sleep(1)
+   
+    ETF_name = (driver.find_element_by_xpath(".//*[contains(text(),'Performance chart of ')]").text).replace("Performance chart of ","")
+    
     graph = driver.find_element_by_xpath("//div[@class='chartoptions']/following-sibling::div")
-    #chart_area = graph.get_attribute('class')
-    #chart_location = graph.location
     chart_size =  graph.size
 
     margin = 10
     x_limit = int(chart_size['width']/2) - margin
-    #y_limit = int(chart_size['height']/2) - margin
 
     time.sleep(1)
 
     data = {}
     action = AC(driver)
     hover = action.move_to_element(graph)
-
-    #start = time.time()
 
     for i in range (31):   
         if i == 0:
@@ -82,12 +74,9 @@ def get_etf_data(ETF):
         if value.text != '':
             data[date_processed]=float(value.text)
             print (str(date_processed) +" : "+ value.text) 
-        
-    #extraction_time = time.time() - start
-    #print ("Time for data extraction: " + str(round(extraction_time,2)) + " seconds.")
 
     driver.quit()
-    return [ETF, data]
+    return [ETF, data, ETF_name]
 
 if __name__ == '__main__':
     ETF = 'LU1681045370'
