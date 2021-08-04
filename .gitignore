@@ -6,3 +6,6 @@ chromedriver.exe
 
 # Ignore results directory
 results/
+
+# Ignore __pycache__
+__pycache__/
