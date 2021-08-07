@@ -19,5 +19,3 @@ def parallel_execution(ETFs):
 if __name__ == '__main__':
     ETFs = ['LU1681045370','IE00BK5BQT80','IE00BK5BQX27']    
     outputs = parallel_execution(ETFs)
-    
-    
