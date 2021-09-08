@@ -31,7 +31,7 @@ def get_etf_data(ETF):
     driver.find_element_by_xpath('//*[@id="CybotCookiebotDialogBodyLevelButtonLevelOptinAllowallSelection"]').click()
 
 
-    driver.find_element_by_xpath("//a[@title='1 month']").click()
+    driver.find_element_by_xpath("//a[@data-original-title='1 month']").click()
 
     select = Select(driver.find_element_by_xpath("//*[@name='chartPanel:chart:content:optionsPanel:selectContainer:valueType']"))
     select.select_by_visible_text('Market Value')
